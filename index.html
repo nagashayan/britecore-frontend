@@ -105,6 +105,20 @@
                 </div>
             </div>
 
+            <ul data-bind="foreach: features">
+                    <li>
+                            <span data-bind="text: client_id"></span>
+                        <span data-bind="text: title"></span>
+                       <span data-bind="text: description"></span>
+                        <span data-bind="text: product_area"></span>
+                        <span data-bind="text: target_date"></span>
+                    </li> 
+                </ul>
+            <div class="row">
+                    <div class="col-xs-6">
+
+                        </div>
+                        </div>
 
         </div>
         <!-- /.container -->
