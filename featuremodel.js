@@ -61,7 +61,38 @@ function FeatureListViewModel() {
         });
         
     };
+
+    self.removeTask = function(feature) { 
+        console.log(feature);
+        //make call to backend on success destroy on frontend
+        if(feature.client_id()){
+        $.ajax("//127.0.0.1:5000/feature/"+feature.client_id(), {
+            
+            type: "delete",
+            success: function(result) 
+            {   console.log(result);
+                if(result.message == "feature "+ feature.client_id()+" deleted successfully"){
+                    self.features.destroy(feature); 
+                }
+                else{
+                    alert("Error: Deleting was not successfull! Try again");
+                    console.log(result.message);
+                }
+               
+            },
+            error: function(err){
+                // if form was not saved throw and log error
+                alert("Error: Deleting was not successfull! Try again");
+                console.log(err.responseText);
+            }
+
+        
+    });
+}
+else{
+    alert("something not wrong");
+}
    
 }
-
+}
 ko.applyBindings(new FeatureListViewModel());
