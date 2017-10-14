@@ -101,7 +101,7 @@ function FeatureListViewModel() {
         } else {
             alert("something went wrong!");
         }
-        self.updateForm(false);
+        self.cancelUpdate();
     };
     //deletes the future
     //waits for backend confirmation and then destroys frontend feature

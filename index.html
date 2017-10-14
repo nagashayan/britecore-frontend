@@ -101,9 +101,9 @@
                             <input data-bind="value: newtarget_date" type="text" class="form-control" id="target_date" aria-describedby="emailHelp" placeholder="Enter Target date">
 
                         </div>
-                        <button visible:newForm data-bind="click: $root.updateBackend" type="button" class="btn btn-primary">update</button>
-                        
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button data-bind="click: $root.updateBackend,visible: updateForm()" type="button" class="btn btn-primary">Update</button>
+                        <button data-bind="click: $root.cancelUpdate,visible: updateForm()" type="button" class="btn btn-primary">Cancel</button>
+                        <button data-bind="visible: !updateForm()"type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
             </div>
