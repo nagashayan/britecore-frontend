@@ -29,7 +29,11 @@ function FeatureListViewModel() {
     // Load initial state from server, convert it to Feature instances, then populate self.Features
     $.getJSON("//127.0.0.1:5000/feature/", function (allData) {
         var mappedFeatures = $.map(allData, function (item) {
-            return new Feature(item)
+            var tempFeature =  new Feature(item);
+            // formatting date similar to input
+            var tempdate = new Date(tempFeature.target_date());
+            tempFeature.target_date = tempdate.getMonth() +"/"+ tempdate.getDate() +"/"+ tempdate.getFullYear();
+            return tempFeature;
         });
         console.log(mappedFeatures);
         self.features(mappedFeatures);
