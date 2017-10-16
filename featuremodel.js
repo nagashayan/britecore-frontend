@@ -108,11 +108,11 @@ function FeatureListViewModel() {
     self.updateFeature = function (feature) {
         console.log(feature);
         self.editFeature(feature);
-        self.newclient_id(feature.client_id());
-        self.newtitle(feature.title());
-        self.newdescription(feature.description());
-        self.newproduct_area(feature.product_area());
-        self.newtarget_date(feature.target_date());
+        self.newclient_id(feature.client_id);
+        self.newtitle(feature.title);
+        self.newdescription(feature.description);
+        self.newproduct_area(feature.product_area);
+        self.newtarget_date(feature.target_date);
         self.updateForm(true);
         
 
