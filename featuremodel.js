@@ -164,7 +164,7 @@ function FeatureListViewModel() {
         self.newclient_id("");
         self.newtitle("");
         self.newdescription("");
-        self.newproduct_area("");
+        self.newproduct_area("billing");
         self.newtarget_date("");
     };
 
