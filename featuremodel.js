@@ -32,7 +32,7 @@ function FeatureListViewModel() {
             var tempFeature = new Feature(item);
             // formatting date similar to input
             var tempdate = new Date(tempFeature.target_date());
-            tempFeature.target_date = parseInt(tempdate.getMonth()+1) + "/" + parseInt(tempdate.getDate()+1) + "/" + tempdate.getFullYear();
+            tempFeature.target_date(parseInt(tempdate.getMonth()+1) + "/" + parseInt(tempdate.getDate()+1) + "/" + tempdate.getFullYear());
             return tempFeature;
         });
         console.log(mappedFeatures);
@@ -94,7 +94,11 @@ function FeatureListViewModel() {
                     self.editFeature().title(self.newtitle());
                     self.editFeature().description(self.newdescription());
                     self.editFeature().product_area(self.newproduct_area());
-                    self.editFeature().target_date = self.newtarget_date();
+                    //self.editFeature().target_date = self.newtarget_date();
+
+                    var tempdate = new Date(self.newtarget_date());
+                    self.editFeature().target_date(parseInt(tempdate.getMonth()+1) + "/" + parseInt(tempdate.getDate()+1) + "/" + tempdate.getFullYear());
+
                     self.cancelUpdate();
                 },
                 error: function (err) {
@@ -120,7 +124,7 @@ function FeatureListViewModel() {
         self.newproduct_area(feature.product_area());
 
         //format date according to date widget
-        var tempdate = new Date(feature.target_date);
+        var tempdate = new Date(feature.target_date());
         //feature.target_date = tempdate.getFullYear() + "-" + tempdate.getMonth() + "-" + tempdate.getDate();
         self.newtarget_date(self.getFormattedDate(tempdate));
         self.updateForm(true);
