@@ -32,7 +32,7 @@ function FeatureListViewModel() {
             var tempFeature = new Feature(item);
             // formatting date similar to input
             var tempdate = new Date(tempFeature.target_date());
-            tempFeature.target_date = tempdate.getMonth() + "/" + tempdate.getDate() + "/" + tempdate.getFullYear();
+            tempFeature.target_date = parseInt(tempdate.getMonth()+1) + "/" + parseInt(tempdate.getDate()+1) + "/" + tempdate.getFullYear();
             return tempFeature;
         });
         console.log(mappedFeatures);
@@ -94,8 +94,8 @@ function FeatureListViewModel() {
                     self.editFeature().title(self.newtitle());
                     self.editFeature().description(self.newdescription());
                     self.editFeature().product_area(self.newproduct_area());
-                    self.editFeature().target_date(self.newtarget_date());
-
+                    self.editFeature().target_date = self.newtarget_date();
+                    self.cancelUpdate();
                 },
                 error: function (err) {
                     // if form was not saved throw and log error
@@ -105,8 +105,9 @@ function FeatureListViewModel() {
             });
         } else {
             alert("something went wrong!");
+            self.cancelUpdate();
         }
-        self.cancelUpdate();
+        
     };
     //loads form with current  record data
     //once the user clicks on update button next to record
