@@ -12,6 +12,7 @@ function Feature(data) {
 function FeatureListViewModel() {
     // Data
     var self = this;
+    var SERVER_URL = "//127.0.0.1:5000/feature/";
     //which is binded to list of values shown on UI
     self.features = ko.observableArray([]);
     self.subModule = ko.observableArray([]);
@@ -27,7 +28,7 @@ function FeatureListViewModel() {
     self.updateForm = ko.observable(false);
 
     // Load initial state from server, convert it to Feature instances, then populate self.Features
-    $.getJSON("//127.0.0.1:5000/feature/", function (allData) {
+    $.getJSON(SERVER_URL, function (allData) {
         var mappedFeatures = $.map(allData, function (item) {
             var tempFeature = new Feature(item);
             // formatting date similar to input
@@ -43,7 +44,7 @@ function FeatureListViewModel() {
     // Operations
     self.addFeature = function () {
 
-        $.ajax("//127.0.0.1:5000/feature/", {
+        $.ajax(SERVER_URL, {
             data: ko.toJSON({
                 "client_id": parseInt(this.newclient_id()),
                 "title": this.newtitle(),
@@ -78,7 +79,7 @@ function FeatureListViewModel() {
 
         //make call to backend on success destroy on frontend
         if (feature.newclient_id()) {
-            $.ajax("//127.0.0.1:5000/feature/" + feature.newclient_id(), {
+            $.ajax(SERVER_URL + feature.newclient_id(), {
                 data: ko.toJSON({
                     "client_id": parseInt(feature.newclient_id()),
                     "title": feature.newtitle(),
@@ -137,7 +138,7 @@ function FeatureListViewModel() {
         console.log(feature);
         //make call to backend on success destroy on frontend
         if (feature.client_id()) {
-            $.ajax("//127.0.0.1:5000/feature/" + feature.client_id(), {
+            $.ajax(SERVER_URL + feature.client_id(), {
 
                 type: "delete",
                 success: function (result) {
