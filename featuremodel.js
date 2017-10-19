@@ -56,13 +56,16 @@ function FeatureListViewModel() {
             contentType: "application/json",
             success: function (result) {
                 console.log(result);
-                self.features.push(result);
+
+                var tempFeature = new Feature(result);
+                // formatting date similar to input
+                var tempdate = new Date(tempFeature.target_date());
+                tempFeature.target_date(parseInt(tempdate.getMonth()+1) + "/" + parseInt(tempdate.getDate()+1) + "/" + tempdate.getFullYear());
+
+                self.features.push(tempFeature);
                 //clear form after adding
-                self.newclient_id("");
-                self.newtitle("");
-                self.newdescription("");
-                self.newproduct_area("");
-                self.newtarget_date("");
+                
+                self.clearForm();
             },
             error: function (err) {
                 // if form was not saved throw and log error
@@ -162,7 +165,7 @@ function FeatureListViewModel() {
         } else {
             alert("something not wrong");
         }
-
+        self.cancelUpdate();
     };
 
     self.clearForm = function () {
