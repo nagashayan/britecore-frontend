@@ -6,6 +6,8 @@ function Feature(data) {
     this.description = ko.observable(data.description);
     this.product_area = ko.observable(data.product_area);
     this.target_date = ko.observable(data.target_date);
+    this.client_priority = ko.observable(data.client_priority);
+    
 }
 
 //feature view model 
@@ -22,7 +24,8 @@ function FeatureListViewModel() {
     self.newdescription = ko.observable();
     self.newproduct_area = ko.observable();
     self.newtarget_date = ko.observable();
-    self.editFeature = ko.observable()
+    self.newclient_priority = ko.observable();
+    self.editFeature = ko.observable();
 
     //button visibility binding
     self.updateForm = ko.observable(false);
@@ -51,6 +54,7 @@ function FeatureListViewModel() {
                 "description": this.newdescription(),
                 "product_area": this.newproduct_area(),
                 "target_date": this.newtarget_date(),
+                "client_priority": parseInt(this.newclient_priority()),
             }),
             type: "post",
             contentType: "application/json",
@@ -89,6 +93,7 @@ function FeatureListViewModel() {
                     "description": feature.newdescription(),
                     "product_area": feature.newproduct_area(),
                     "target_date": feature.newtarget_date(),
+                    "client_priority": parseInt(feature.newclient_priority()),
                 }),
                 type: "PUT",
                 contentType: "application/json",
@@ -98,11 +103,10 @@ function FeatureListViewModel() {
                     self.editFeature().title(self.newtitle());
                     self.editFeature().description(self.newdescription());
                     self.editFeature().product_area(self.newproduct_area());
-                    //self.editFeature().target_date = self.newtarget_date();
 
                     var tempdate = new Date(self.newtarget_date());
                     self.editFeature().target_date(parseInt(tempdate.getMonth()+1) + "/" + parseInt(tempdate.getDate()+1) + "/" + tempdate.getFullYear());
-
+                    self.editFeature().client_priority(self.newclient_priority());
                     self.cancelUpdate();
                 },
                 error: function (err) {
@@ -129,8 +133,8 @@ function FeatureListViewModel() {
 
         //format date according to date widget
         var tempdate = new Date(feature.target_date());
-        //feature.target_date = tempdate.getFullYear() + "-" + tempdate.getMonth() + "-" + tempdate.getDate();
         self.newtarget_date(self.getFormattedDate(tempdate));
+        self.newclient_priority(feature.client_priority());
         self.updateForm(true);
 
 
@@ -175,6 +179,7 @@ function FeatureListViewModel() {
         self.newdescription("");
         self.newproduct_area("billing");
         self.newtarget_date("");
+        self.newclient_priority("");
     };
 
     // if user clicks on cancel before clicking save/update button

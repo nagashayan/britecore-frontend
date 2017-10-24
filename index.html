@@ -76,17 +76,22 @@
                     <form data-bind="submit: addFeature, update: updateBackend">
                         <div class="form-group">
                             <label for="client id">Client ID</label>
-                            <input data-bind="value: newclient_id" type="number" class="form-control" id="client_id" aria-describedby="emailHelp" placeholder="Enter Client ID">
+                            <input data-bind="value: newclient_id" type="number" class="form-control" id="client_id" aria-describedby="client_id" placeholder="Enter Client ID">
+
+                        </div>
+                        <div class="form-group">
+                            <label for="client priority">Client Priority</label>
+                            <input data-bind="value: newclient_priority" type="number" class="form-control" id="client_priority" aria-describedby="client priority" placeholder="Enter Client priority Number">
 
                         </div>
                         <div class="form-group">
                             <label for="title">Title</label>
-                            <input data-bind="value: newtitle" type="text" class="form-control" id="title" aria-describedby="emailHelp" placeholder="Enter Title">
+                            <input data-bind="value: newtitle" type="text" class="form-control" id="title" aria-describedby="title" placeholder="Enter Title">
 
                         </div>
                         <div class="form-group">
                             <label for="description">Description</label>
-                            <input data-bind="value: newdescription" type="ematextil" class="form-control" id="description" aria-describedby="emailHelp"
+                            <input data-bind="value: newdescription" type="ematextil" class="form-control" id="description" aria-describedby="description"
                                 placeholder="Enter Description">
 
                         </div>
@@ -100,10 +105,6 @@
                                 <option value="reports">Reports</option>
 
                             </select>
-                            <!--  <label for="product area">Product Area</label>
-                            <input data-bind="value: newproduct_area" type="text" class="form-control" id="product_area" aria-describedby="emailHelp"
-                                placeholder="Enter Product Area"> -->
-
                         </div>
                         <div class="form-group">
                             <label for="target date">Target date</label>
@@ -124,12 +125,15 @@
             </div>
             <div class="row text-center">
                 <div class="col-xs-1">
-                    <h4>Client ID</h4>
+                    <h4>ID</h4>
+                </div>
+                <div class="col-xs-1">
+                    <h4>Client Priority</h4>
                 </div>
                 <div class="col-xs-2">
                     <h4>Title</h4>
                 </div>
-                <div class="col-xs-3">
+                <div class="col-xs-2">
                     <h4>Description</h4>
                 </div>
                 <div class="col-xs-2">
@@ -148,6 +152,9 @@
                 <div class="row" data-bind="attr: { id:client_id}">
                     <div class="col-xs-1">
                         <span data-bind="text: client_id"></span>
+                    </div>
+                    <div class="col-xs-1">
+                        <span data-bind="text: client_priority"></span>
                     </div>
                     <div class="col-xs-2">
                         <span data-bind="text: title"></span>
