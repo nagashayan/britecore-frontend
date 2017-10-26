@@ -1,6 +1,7 @@
 //initializing feature model
 function Feature(data) {
     console.log(data.description);
+    this.id = ko.observable(data.id);
     this.client_id = ko.observable(data.client_id);
     this.title = ko.observable(data.title);
     this.description = ko.observable(data.description);
@@ -20,6 +21,7 @@ function FeatureListViewModel() {
     self.subModule = ko.observableArray([]);
     //fields binding for form
     self.newclient_id = ko.observable();
+    self.newid = ko.observable();
     self.newtitle = ko.observable();
     self.newdescription = ko.observable();
     self.newproduct_area = ko.observable();
@@ -86,7 +88,7 @@ function FeatureListViewModel() {
 
         //make call to backend on success destroy on frontend
         if (feature.newclient_id()) {
-            $.ajax(SERVER_URL + feature.newclient_id(), {
+            $.ajax(SERVER_URL + feature.newid(), {
                 data: ko.toJSON({
                     "client_id": parseInt(feature.newclient_id()),
                     "title": feature.newtitle(),
@@ -99,6 +101,7 @@ function FeatureListViewModel() {
                 contentType: "application/json",
                 success: function (result) {
                     console.log(result);
+                    self.editFeature().id(self.newid());
                     self.editFeature().client_id(self.newclient_id());
                     self.editFeature().title(self.newtitle());
                     self.editFeature().description(self.newdescription());
@@ -126,6 +129,7 @@ function FeatureListViewModel() {
     self.updateFeature = function (feature) {
         console.log(feature);
         self.editFeature(feature);
+        self.newid(feature.id());
         self.newclient_id(feature.client_id());
         self.newtitle(feature.title());
         self.newdescription(feature.description());
@@ -137,6 +141,9 @@ function FeatureListViewModel() {
         self.newclient_priority(feature.client_priority());
         self.updateForm(true);
 
+        //jquery methods for disabling certain fields
+        $("#client_priority").prop( "disabled", true );
+        $("#client_id").prop( "disabled", true );
 
     };
     //deletes the future
@@ -145,12 +152,12 @@ function FeatureListViewModel() {
         console.log(feature);
         //make call to backend on success destroy on frontend
         if (feature.client_id()) {
-            $.ajax(SERVER_URL + feature.client_id(), {
+            $.ajax(SERVER_URL + feature.id(), {
 
                 type: "delete",
                 success: function (result) {
                     console.log(result);
-                    if (result.message == "feature " + feature.client_id() + " deleted successfully") {
+                    if (result.message == "feature " + feature.id() + " deleted successfully") {
                         self.features.destroy(feature);
                     } else {
                         alert("Error: Deleting was not successfull! Try again");
@@ -187,6 +194,10 @@ function FeatureListViewModel() {
         console.log("cancelling form");
         self.updateForm(false);
         self.clearForm();
+
+        //jquery methods for enabling certain fields
+        $("#client_priority").prop( "disabled", false );
+        $("#client_id").prop( "disabled", false );
 
     };
     // format date in MM-dd-yyyy
