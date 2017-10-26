@@ -16,6 +16,7 @@ function FeatureListViewModel() {
     // Data
     var self = this;
     var SERVER_URL = "//127.0.0.1:5000/feature/";
+    var SERVER_URL = "//ec2-18-220-235-37.us-east-2.compute.amazonaws.com:5000/feature/";
     //which is binded to list of values shown on UI
     self.features = ko.observableArray([]);
     self.subModule = ko.observableArray([]);
